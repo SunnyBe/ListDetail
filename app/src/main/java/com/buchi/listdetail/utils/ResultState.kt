@@ -1,52 +1,39 @@
 package com.buchi.listdetail.utils
 
 data class ResultState<T>(
-        var loading: Boolean = false,
-        var data: Event<T>? = null,
-        val error: Throwable?= null,
-        val message: String?=null
+    var message: Event<String>? = null,
+    var loading: Boolean = false,
+    var data: Event<T>? = null
 ) {
     companion object {
-
         fun <T> error(
-                error: Throwable
+            message: String
         ): ResultState<T> {
             return ResultState(
-                    loading = false,
-                    data = null,
-                    error = error
-            )
-        }
-
-        fun <T> error(
-                message: String
-        ): ResultState<T> {
-            return ResultState(
-                    loading = false,
-                    data = null,
-                    message = message
+                message = Event(message),
+                loading = false,
+                data = null
             )
         }
 
         fun <T> loading(
-                isLoading: Boolean,
-                loadingMsg: String?=null
+            isLoading: Boolean
         ): ResultState<T> {
             return ResultState(
-                    loading = isLoading,
-                    message = loadingMsg,
-                    data = null,
-                    error = null
+                message = null,
+                loading = isLoading,
+                data = null
             )
         }
 
         fun <T> data(
-                data: T? = null
+            message: String? = null,
+            data: T? = null
         ): ResultState<T> {
             return ResultState(
-                    loading = false,
-                    data = Event.dataEvent(data),
-                    error = null
+                message = Event.messageEvent(message),
+                loading = false,
+                data = Event.dataEvent(data)
             )
         }
     }

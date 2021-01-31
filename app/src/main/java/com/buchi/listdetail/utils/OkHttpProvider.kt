@@ -2,11 +2,14 @@ package com.buchi.listdetail.utils
 
 import android.util.Log
 import com.buchi.listdetail.BuildConfig
+import com.buchi.listdetail.data.model.MainEntity
+import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
 import okhttp3.Response
 import java.util.concurrent.TimeUnit
+import kotlin.reflect.KClass
 
 object OkHttpProvider {
     var baseUrl: String? = null
@@ -83,6 +86,10 @@ object OkHttpProvider {
         } else {
             null
         }
+    }
+
+    inline fun<reified T> stringToObject(jsonString: String): T {
+        return Gson().fromJson(jsonString, T::class.java)
     }
 
 }
