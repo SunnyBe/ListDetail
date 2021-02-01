@@ -65,24 +65,4 @@ class MainActivityTest {
         onView(withId(R.id.user_name))
             .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
     }
-
-    /**
-     * Matches the [UserListAdapter.UserListViewHolder]s in the middle of the list.
-     */
-    private fun isInTheMiddle(): Matcher<UserListAdapter.UserListViewHolder?> {
-        return object : TypeSafeMatcher<UserListAdapter.UserListViewHolder?>() {
-
-            protected fun matchesSafely(customHolder: UserListAdapter.UserListListener): Boolean {
-                return customHolder.getIsInTheMiddle()
-            }
-
-            override fun describeTo(description: Description) {
-                description.appendText("item in the middle")
-            }
-
-            override fun matchesSafely(item: UserListAdapter.UserListViewHolder?): Boolean {
-                return item
-            }
-        }
-    }
 }
