@@ -1,5 +1,6 @@
 package com.buchi.listdetail.presentation
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -13,6 +14,8 @@ import com.buchi.listdetail.databinding.ActivityMainBinding
 import com.buchi.listdetail.databinding.DialogDetailBinding
 import com.buchi.listdetail.utils.MainViewModelFactory
 import com.buchi.listdetail.utils.UserListAdapter
+import com.buchi.listdetail.utils.dateOnlyFromIsoDate
+import com.bumptech.glide.Glide
 
 class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
 
@@ -105,15 +108,21 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
         errorDialogBuilder.show()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun detailDialog(user: MainEntity.User) {
         val detailBinding = DialogDetailBinding.inflate(layoutInflater)
         val detailView = detailBinding.root
         val detailBuilder = AlertDialog.Builder(this).setView(detailView)
         detailBuilder.setCancelable(false)
         detailBinding.userDetailHeading.text = user.id
-        detailBinding.userNameValue.text = user.firstName
+        detailBinding.titleFirstnameValue.text = "${user.title?.capitalize()} ${user.firstName?.capitalize()}"
+        detailBinding.userNameValue.text = user.lastName?.capitalize()
         detailBinding.emailValue.text = user.email
-        detailBinding.userPhoneValue.text = user.email
+        detailBinding.userPhoneValue.text = user.phone
+        detailBinding.locationValue.text = "${user.location?.street}, ${user.location?.city}"
+        detailBinding.genderValue.text = user.gender
+        detailBinding.dateOfBirth.text = this.dateOnlyFromIsoDate( user.dateOfBirth?:"", "dd MM YYYY")
+        Glide.with(detailView).load(user.picture).into(detailBinding.userImage)
         val detailDialog = detailBuilder.show()
         detailBinding.cancelAction.setOnClickListener {
             detailDialog.dismiss()
