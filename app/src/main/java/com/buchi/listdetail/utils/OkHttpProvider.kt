@@ -15,8 +15,8 @@ object OkHttpProvider {
     var baseUrl: String? = null
 
     init {
-//        baseUrl = "https://dummyapi.io/data/api/"
-        baseUrl = "https://jsonplaceholder.typicode.com/"
+        baseUrl = "https://dummyapi.io/data/api/"
+//        baseUrl = "https://jsonplaceholder.typicode.com/" Alternative API
     }
 
     // Timeout for the network requests
@@ -55,7 +55,7 @@ object OkHttpProvider {
             Request.Builder().url(url).get()
         }
         // AppID is meant to be secret and will be passed from pipeline vie gradle.properties file.
-//        request.addHeader("app-id", BuildConfig.APP_ID)
+        request.addHeader("app-id", BuildConfig.APP_ID)
         request.addHeader("Content-type", "application/json")
         return request
     }
