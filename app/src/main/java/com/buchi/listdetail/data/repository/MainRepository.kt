@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface MainRepository {
     fun allList(): Flow<ResultState<MainViewState>>
-    fun userDetail(userId: String?): Flow<ResultState<MainViewState>>
+    fun userDetail(userId: Int?): Flow<ResultState<MainViewState>>
 }

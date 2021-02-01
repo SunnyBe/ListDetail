@@ -65,7 +65,7 @@ class MainViewModelTest {
             viewModel.fetchAllUsers()
             Mockito.`when`(mainRepo.allList()).thenReturn(testFlow)
             // Test
-            val expectedFirstItemId = "user00"
+            val expectedFirstItemId = 0
             Assert.assertEquals(expectedFirstItemId, viewModel.dataState.getValueForTest()?.data?.getContentIfNotHandled()?.allUser?.first()?.id)
         }
     }
@@ -80,17 +80,43 @@ class MainViewModelTest {
             viewModel.fetchAllUsers()
             Mockito.`when`(mainRepo.allList()).thenReturn(testFlow)
             // Test
-            val expectedLastItemId = "user04"
+            val expectedLastItemId = 4
             Assert.assertEquals(expectedLastItemId, viewModel.dataState.getValueForTest()?.data?.getContentIfNotHandled()?.allUser?.last()?.id)
         }
     }
 
 
     @Test(expected = Throwable::class)
-    fun fetchUserList_Successfully_updates_dataState_withError() {
+    fun fetchUserList_Failedto_updates_dataState_withError() {
         // Process
         viewModel.fetchAllUsers()
         Mockito.`when`(mainRepo.allList()).thenThrow(Throwable("A test issue occurred"))
+        // Test
+        val expectedErrorMsg = "A test issue occurred"
+        Assert.assertEquals(expectedErrorMsg, (viewModel.dataState.getValueForTest()?.data?.getContentIfNotHandled()?.allUser as Throwable).message)
+    }
+
+    @Test
+    fun fetchUserDetail_Successfully_updates_dataState_withValidUserDetail() {
+        coroutineScope.runBlockingTest {
+            val testFlow = flow {
+                emit(ResultState.data(null, MainViewState(user = MainEntity.User.testUser(3))))
+            }
+            // Process
+            viewModel.fetchUserDetail(3)
+            Mockito.`when`(mainRepo.userDetail(3)).thenReturn(testFlow)
+            // Test
+            val expectedEmail = "3@test.com"
+            Assert.assertEquals(expectedEmail, viewModel.dataState.getValueForTest()?.data?.getContentIfNotHandled()?.user?.email)
+        }
+    }
+
+
+    @Test(expected = Throwable::class)
+    fun fetchUserDetail_Failedto_updates_dataState_withError() {
+        // Process
+        viewModel.fetchUserDetail(3)
+        Mockito.`when`(mainRepo.userDetail(3)).thenThrow(Throwable("A test issue occurred"))
         // Test
         val expectedErrorMsg = "A test issue occurred"
         Assert.assertEquals(expectedErrorMsg, (viewModel.dataState.getValueForTest()?.data?.getContentIfNotHandled()?.allUser as Throwable).message)

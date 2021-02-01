@@ -12,6 +12,9 @@ interface GenericDao<T> {
     @Insert
     fun insertAll(vararg data: T)
 
+    @Insert
+    fun insert(data: T)
+
     @Delete
     fun delete(user: T)
 }
