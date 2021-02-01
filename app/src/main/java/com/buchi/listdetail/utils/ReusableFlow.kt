@@ -50,7 +50,7 @@ class ReusableFlow<T>(private val context: Context) {
 //                emit(ResultState.data(null, apiRequest))
                 // Rerun a check on the cached data to make sure there's one source of data going to
                 // viewModel
-                emit(ResultState.data(null, cacheSynchProcess.checkCache()))
+                emit(ResultState.data("List was synched", cacheSynchProcess.checkCache()))
             } else {
                 emit(ResultState.error("Please check your internet connection"))
             }

@@ -80,10 +80,6 @@ class MainRepositoryImpl constructor(
     }
 
     fun updateUserListInCache(networkList: List<MainEntity.User>?) {
-//        networkList?.map {
-//            Log.d(javaClass.simpleName, "Updating Cache: $it")
-//            userDao.insertAll(it)
-//        }
         networkList?.let { list->
             Log.d(javaClass.simpleName, "Updating Cache: $list")
             userDao.insertAll(*list.toTypedArray())

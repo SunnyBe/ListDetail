@@ -3,12 +3,14 @@ package com.buchi.listdetail.presentation
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.buchi.listdetail.MainApplication
 import com.buchi.listdetail.data.model.MainEntity
 import com.buchi.listdetail.databinding.ActivityMainBinding
+import com.buchi.listdetail.databinding.DialogDetailBinding
 import com.buchi.listdetail.utils.MainViewModelFactory
 import com.buchi.listdetail.utils.UserListAdapter
 
@@ -52,6 +54,7 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
         mainViewModel.fetchAllUsers()
     }
 
+    // Observe and process dataState and viewState liveData/event updates
     private fun processStateEvents() {
         mainViewModel.dataState.observe(this, { dataState ->
             dataState?.loading?.let { progress ->
@@ -60,29 +63,61 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
             }
 
             dataState?.message?.let { err ->
-                err.getContentIfNotHandled()?.let {
-                    showErrorDialog(it)
+                // Ignore error if dataState has data. Data state displays msg with data as a Toast to give users context.
+                if (dataState.data == null) {
+                    err.getContentIfNotHandled()?.let { msg ->
+                        showErrorDialog(errTitle = "Failed", errorMsg = msg)
+                    }
                 }
             }
 
             dataState?.data?.getContentIfNotHandled()?.let { authViewState ->
+                // If data comes with a msg
+                if (dataState.data != null && dataState.message != null) {
+                    Toast.makeText(this, "List was updated.", Toast.LENGTH_LONG).show()
+                }
                 mainViewModel.setViewState(authViewState)
             }
         })
 
         mainViewModel.viewState.observe(this, { viewState ->
             viewState.allUser?.let { users ->
-                Toast.makeText(this, "List was updated.", Toast.LENGTH_LONG).show()
                 userListAdapter.submitList(users)
             }
             viewState.user?.let { user ->
-                Toast.makeText(this, "User: $user", Toast.LENGTH_LONG).show()
+                detailDialog(user)
             }
         })
     }
 
-    private fun showErrorDialog(errorMsg: String) {
-        Toast.makeText(this, "Error: $errorMsg", Toast.LENGTH_LONG).show()
+    private fun showErrorDialog(errTitle: String?= "Failed", errorMsg: String) {
+        val errorDialogBuilder = AlertDialog.Builder(this).apply {
+            title = errTitle
+            setMessage(errorMsg)
+            setPositiveButton("Ok") { dialog, p ->
+                dialog.dismiss()
+            }
+            setOnCancelListener { dialog ->
+                dialog.dismiss()
+            }
+        }
+        errorDialogBuilder.setCancelable(false)
+        errorDialogBuilder.show()
+    }
+
+    private fun detailDialog(user: MainEntity.User) {
+        val detailBinding = DialogDetailBinding.inflate(layoutInflater)
+        val detailView = detailBinding.root
+        val detailBuilder = AlertDialog.Builder(this).setView(detailView)
+        detailBuilder.setCancelable(false)
+        detailBinding.userDetailHeading.text = user.username
+        detailBinding.userNameValue.text = user.name
+        detailBinding.emailValue.text = user.email
+        detailBinding.userPhoneValue.text = user.phone
+        val detailDialog = detailBuilder.show()
+        detailBinding.cancelAction.setOnClickListener {
+            detailDialog.dismiss()
+        }
     }
 
     private fun showProgressDialog(showProgress: Boolean) {
