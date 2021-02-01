@@ -7,8 +7,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.buchi.listdetail.data.model.MainEntity
 import com.buchi.listdetail.databinding.ItemUserBinding
+import com.bumptech.glide.Glide
 
-class UserListAdapter(val listListener: UserListListener) : ListAdapter<MainEntity.User, UserListAdapter.UserListViewHolder>(diffConfig) {
+class UserListAdapter(private val listListener: UserListListener) : ListAdapter<MainEntity.User, UserListAdapter.UserListViewHolder>(diffConfig) {
     companion object {
         val diffConfig = object : DiffUtil.ItemCallback<MainEntity.User>() {
             override fun areItemsTheSame(
@@ -36,9 +37,13 @@ class UserListAdapter(val listListener: UserListListener) : ListAdapter<MainEnti
     class UserListViewHolder(private val itemUserBinding: ItemUserBinding): RecyclerView.ViewHolder(itemUserBinding.root) {
 
         fun bind(user: MainEntity.User) {
-            itemUserBinding.userName.text = user.name
+            itemUserBinding.userName.text = "${user.firstName} ${user.lastName}"
             itemUserBinding.userEmail.text = user.email
-            itemUserBinding.textView3.text = user.phone
+//            itemUserBinding.textView3.text = user.email
+            Glide.with(itemUserBinding.root)
+                .load(user.picture)
+//                .placeholder(R.layout.)
+                .into(itemUserBinding.userPicture)
         }
     }
 

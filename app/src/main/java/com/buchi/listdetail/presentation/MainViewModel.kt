@@ -56,7 +56,7 @@ class MainViewModel(
         _stateEvent.value = MainStateEvent.FetchAllUsers()
     }
 
-    fun fetchUserDetail(userId: Int?) {
+    fun fetchUserDetail(userId: String?) {
         _stateEvent.value = MainStateEvent.FetchUserDetail(userId = userId)
     }
 

@@ -10,11 +10,11 @@ interface UserDao : GenericDao<MainEntity.User> {
     @Query("SELECT * FROM user")
     override fun getAll(): List<MainEntity.User>
 
-    @Query("SELECT * FROM user WHERE :name == name")
-    fun findByName(name: String): List<MainEntity.User>
+    @Query("SELECT * FROM user WHERE :firstName == firstName")
+    fun findByFirstName(firstName: String): List<MainEntity.User>
 
-    @Query("SELECT * FROM user WHERE :userName == username")
-    fun findByUserName(userName: String): List<MainEntity.User>
+    @Query("SELECT * FROM user WHERE :email == lastName")
+    fun findByEmail(email: String): List<MainEntity.User>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     override fun insertAll(vararg data: MainEntity.User)
