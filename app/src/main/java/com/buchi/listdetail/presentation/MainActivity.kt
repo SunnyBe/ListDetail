@@ -110,10 +110,10 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
         val detailView = detailBinding.root
         val detailBuilder = AlertDialog.Builder(this).setView(detailView)
         detailBuilder.setCancelable(false)
-        detailBinding.userDetailHeading.text = user.username
-        detailBinding.userNameValue.text = user.name
+        detailBinding.userDetailHeading.text = user.id
+        detailBinding.userNameValue.text = user.firstName
         detailBinding.emailValue.text = user.email
-        detailBinding.userPhoneValue.text = user.phone
+        detailBinding.userPhoneValue.text = user.email
         val detailDialog = detailBuilder.show()
         detailBinding.cancelAction.setOnClickListener {
             detailDialog.dismiss()

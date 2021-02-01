@@ -2,6 +2,7 @@ package com.buchi.listdetail.utils
 
 import android.content.Context
 import android.util.Log
+import com.bumptech.glide.load.HttpException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
@@ -31,7 +32,8 @@ class ReusableFlow<T>(private val context: Context) {
             emit(ResultState.loading(true))
         }
             .catch { ex ->
-                emit(ResultState.error(ex.message ?: ""))
+                ex.printStackTrace()
+                emit(ResultState.error("Unable to perform operation, please try again!"))
             }
     }
 
@@ -58,6 +60,7 @@ class ReusableFlow<T>(private val context: Context) {
             emit(ResultState.loading(true))
         }
             .catch { ex ->
+                ex.printStackTrace()
                 emit(ResultState.error(ex.message ?: ""))
             }
     }
