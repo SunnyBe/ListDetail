@@ -15,7 +15,8 @@ object OkHttpProvider {
     var baseUrl: String? = null
 
     init {
-        baseUrl = "https://dummyapi.io/data/api/"
+//        baseUrl = "https://dummyapi.io/data/api/"
+        baseUrl = "https://jsonplaceholder.typicode.com/"
     }
 
     // Timeout for the network requests
@@ -54,7 +55,7 @@ object OkHttpProvider {
             Request.Builder().url(url).get()
         }
         // AppID is meant to be secret and will be passed from pipeline vie gradle.properties file.
-        request.addHeader("app-id", BuildConfig.APP_ID)
+//        request.addHeader("app-id", BuildConfig.APP_ID)
         request.addHeader("Content-type", "application/json")
         return request
     }
@@ -68,8 +69,10 @@ object OkHttpProvider {
     fun makeNetworkRequest(url: String, body: RequestBody? = null): Response {
         val cUrl = appendUrl(url) ?: ""
         val request = buildRequest(cUrl, body).build()
-        Log.d(javaClass.simpleName, "Request: $request\nBody: ${request.body}")
-        return getOkHttpClient().newCall(request = request).execute()
+        Log.d(javaClass.simpleName, "Request: $request ==> Body: ${request.body}")
+        val response = getOkHttpClient().newCall(request = request).execute()
+        Log.d(javaClass.simpleName, "Response Code: ${response.code}")
+        return response
     }
 
 

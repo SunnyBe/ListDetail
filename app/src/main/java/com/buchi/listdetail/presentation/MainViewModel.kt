@@ -27,14 +27,10 @@ class MainViewModel(
     private val _viewState: SingleLiveEvent<MainViewState> = SingleLiveEvent()
     val viewState: LiveData<MainViewState> get() = _viewState
 
-//    init {
-//        _stateEvent.asFlow()
-//            .onEach { stateEvent->
-//                processEvents(stateEvent).collectLatest {
-//                    _dataState.postValue(it)
-//                }
-//            }.launchIn(viewModelScope)
-//    }
+    init {
+        // Init event state as Idle state
+        _stateEvent.value = MainStateEvent.Idle()
+    }
 
 
     private fun processEvents(stateEvent: MainStateEvent): Flow<ResultState<MainViewState>> {
@@ -60,8 +56,8 @@ class MainViewModel(
         _stateEvent.value = MainStateEvent.FetchAllUsers()
     }
 
-    fun fetchUserDetail() {
-        _stateEvent.value = MainStateEvent.FetchAllUsers()
+    fun fetchUserDetail(userId: Int?) {
+        _stateEvent.value = MainStateEvent.FetchUserDetail(userId = userId)
     }
 
 }

@@ -49,17 +49,15 @@ class MainActivityTest {
             override fun dispatch(request: RecordedRequest): MockResponse {
                 return MockResponse()
                     .setResponseCode(200)
-                    .setBody(FileReader.readStringFromFile("list_success_response.json"))
+                    .setBody(FileReader.readStringFromFile("userlist_success_response.json"))
             }
         }
 //        activityRule.launchActivity(null)
         activityRule.scenario.recreate()
 
-        onView(withId(R.id.progressBar))
-            .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
-        onView(withId(R.id.recyclerView))
+        onView(withId(R.id.users_list))
             .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-        onView(withId(R.id.textView))
-            .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
+        onView(withId(R.id.user_name))
+            .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
     }
 }
