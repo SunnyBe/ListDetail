@@ -37,9 +37,9 @@ class MainDbTest {
     @Test
     @Throws(Exception::class)
     fun writeUserAndReadInList() {
-        val user: MainEntity.User = MainEntity.User.testUser(3)
+        val user: MainEntity.User = MainEntity.User.testUser("user03")
         userDao.insert(user)
-        val byName = userDao.findByUserName("Mende")
+        val byName = userDao.findByFirstName("Sandal")
         assertThat(byName[0], equalTo(user))
     }
 
@@ -48,7 +48,7 @@ class MainDbTest {
     fun writeUserListAndReadInList() {
         val users: List<MainEntity.User> = MainEntity.User.listTestUser()
         userDao.insertAll(*users.toTypedArray())
-        val byName = userDao.findByUserName("Mende")
+        val byName = userDao.findByFirstName("Sandal")
         assertThat(byName[0], equalTo(users.first()))
     }
 }

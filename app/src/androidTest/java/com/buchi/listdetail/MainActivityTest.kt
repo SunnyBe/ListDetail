@@ -42,22 +42,4 @@ class MainActivityTest {
     fun teardown() {
         mockWebServer.shutdown()
     }
-
-    @Test
-    fun testSuccessfulResponse() {
-        mockWebServer.dispatcher = object : Dispatcher() {
-            override fun dispatch(request: RecordedRequest): MockResponse {
-                return MockResponse()
-                    .setResponseCode(200)
-                    .setBody(FileReader.readStringFromFile("userlist_success_response.json"))
-            }
-        }
-//        activityRule.launchActivity(null)
-        activityRule.scenario.recreate()
-
-        onView(withId(R.id.users_list))
-            .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-        onView(withId(R.id.user_name))
-            .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-    }
 }
