@@ -30,9 +30,6 @@ This project brings to table set of best practices, tools, and solutions:
 * Material design
 
 ## Tech-stack
-
-<img src="misc/image/application_anim.gif" width="336" align="right" hspace="20">
-
 Min API level is set to [`21`](https://android-arsenal.com/api?level=21), so the presented approach is suitable for over
 [85% of devices](https://developer.android.com/about/dashboards) running Android. This project takes advantage of many
 popular libraries and tools of the Android ecosystem. Most of the libraries are in the stable version unless there is a
@@ -76,7 +73,7 @@ There are a few ways to open this project.
 
 ### Command-line + Android Studio
 
-1. Run `git clone https://github.com/igorwojda/android-showcase.git` to clone project
+1. Run `git clone https://github.com/SunnyBe/ListDetail.git` to clone project
 2. Go to `Android Studio` -> `File` -> `Open` and select cloned directory
 3. Provide `APP_ID="<value goes here>"` in the `gradle.properties`
 
@@ -84,11 +81,6 @@ There are a few ways to open this project.
 
 This is project is a sample, to inspire you and should handle most of the common cases, but please take a look at
 additional resources.
-
-### Cheat sheet
-
-* [Android Ecosystem Cheat Sheet](https://github.com/igorwojda/android-ecosystem-cheat-sheet) - board containing 200+ most important tools
-* [Kotlin Coroutines - Use Cases on Android](https://github.com/LukasLechnerDev/Kotlin-Coroutine-Use-Cases-on-Android) - most popular coroutine usages
 
 ## Known issues
 - `ktlint` `import-ordering` rule conflicts with IDE default formatting rule, so it have to be [disabled](.editorconfig)
