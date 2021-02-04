@@ -5,11 +5,6 @@ A simple list-detail android application
 [![AGP](https://img.shields.io/badge/AGP-3.6.3-blue?style=flat)](https://developer.android.com/studio/releases/gradle-plugin)
 [![Gradle](https://img.shields.io/badge/Gradle-5.6.4-blue?style=flat)](https://gradle.org)
 
-[![codebeat badge](https://codebeat.co/badges/7f632064-0be5-450f-b29f-f0e1460582ab)](https://codebeat.co/projects/github-com-igorwojda-android-showcase-master)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a7ef0746703e4c81b0e4af2c46e2885e)](https://app.codacy.com/app/igorwojda/android-showcase?utm_source=github.com&utm_medium=referral&utm_content=igorwojda/android-showcase&utm_campaign=Badge_Grade_Dashboard)
-[![CodeFactor](https://www.codefactor.io/repository/github/igorwojda/android-showcase/badge)](https://www.codefactor.io/repository/github/igorwojda/android-showcase)
-
-
 A simple List-Detail sample project that presents a modern, 2020 approach to
 [Android](https://en.wikipedia.org/wiki/Android_(operating_system)) application development with up to date tech-stack.
 
@@ -30,16 +25,13 @@ This project brings to table set of best practices, tools, and solutions:
 * Material design
 
 ## Tech-stack
-
-<img src="misc/image/application_anim.gif" width="336" align="right" hspace="20">
-
 Min API level is set to [`21`](https://android-arsenal.com/api?level=21), so the presented approach is suitable for over
 [85% of devices](https://developer.android.com/about/dashboards) running Android. This project takes advantage of many
 popular libraries and tools of the Android ecosystem. Most of the libraries are in the stable version unless there is a
 good reason to use non-stable dependency.
 
 * Tech-stack
-    * [Kotlin](https://kotlinlang.org/) + [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html) - perform background operations
+    * [Kotlin](https://kotlinlang.org/) + [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html) + [Flow](https://developer.android.com/kotlin/flow) - perform background operations
     * [OkHttp](https://square.github.io/okhttp/) - networking. Known to be lighter than Retrofit.
     * [Jetpack](https://developer.android.com/jetpack)
         * [LiveData](https://developer.android.com/topic/libraries/architecture/livedata) - notify views about database change
@@ -76,7 +68,7 @@ There are a few ways to open this project.
 
 ### Command-line + Android Studio
 
-1. Run `git clone https://github.com/igorwojda/android-showcase.git` to clone project
+1. Run `git clone https://github.com/SunnyBe/ListDetail.git` to clone project
 2. Go to `Android Studio` -> `File` -> `Open` and select cloned directory
 3. Provide `APP_ID="<value goes here>"` in the `gradle.properties`
 
@@ -84,11 +76,6 @@ There are a few ways to open this project.
 
 This is project is a sample, to inspire you and should handle most of the common cases, but please take a look at
 additional resources.
-
-### Cheat sheet
-
-* [Android Ecosystem Cheat Sheet](https://github.com/igorwojda/android-ecosystem-cheat-sheet) - board containing 200+ most important tools
-* [Kotlin Coroutines - Use Cases on Android](https://github.com/LukasLechnerDev/Kotlin-Coroutine-Use-Cases-on-Android) - most popular coroutine usages
 
 ## Known issues
 - `ktlint` `import-ordering` rule conflicts with IDE default formatting rule, so it have to be [disabled](.editorconfig)
