@@ -65,6 +65,7 @@ There are a few ways to open this project.
 
 1. `Android Studio` -> `File` -> `New` -> `From Version control` -> `Git`
 2. Enter `https://github.com/SunnyBe/ListDetail.git` into URL field
+3. Provide `APP_ID="<value goes here>"` in the `gradle.properties`
 
 ### Command-line + Android Studio
 
